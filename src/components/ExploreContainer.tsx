@@ -1,12 +1,22 @@
+import { IonButton } from '@ionic/react';
 import './ExploreContainer.css';
+import { CapacitorBarcodeScanner, CapacitorBarcodeScannerOptions, CapacitorBarcodeScannerTypeHint } from '@capacitor/barcode-scanner';
 
 interface ContainerProps { }
 
 const ExploreContainer: React.FC<ContainerProps> = () => {
+
+  const barcodeScanner = async () => {
+    const options: CapacitorBarcodeScannerOptions = {
+      hint: CapacitorBarcodeScannerTypeHint.QR_CODE
+    };
+    const res = await CapacitorBarcodeScanner.scanBarcode(options);
+    console.log(res);
+  }
+
   return (
     <div id="container">
-      <strong>Ready to create an app?</strong>
-      <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <IonButton onClick={barcodeScanner}>Scan Barcode</IonButton>
     </div>
   );
 };
